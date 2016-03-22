@@ -2,6 +2,50 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <script>
+        //Declare global JS vars
+        var strTogglURL = "http://www.toggl.com/api/v8/me";
+        var xhrToggl = new XMLHttpRequest();
+
+        //Make the ajax call
+        $.ajax({
+            //Base parameters for every ajax call to the Toggl API
+            type: 'get',
+            datatype: 'json',
+            contenttype: 'application/json',
+            processdata: false,
+
+            //API user authentication information
+            beforesend: function (xhr) {
+                xhr.setrequestheader("authorization", "basic " + btoa("f24b848ec008a3672bf694b19c3cfb98:api_token"));
+            },
+
+            //Pass the URL for the current request type
+            url: strTogglURL,
+
+            //OnSuccess actions
+            success: function (data) {
+                alert(json.stringify(data));
+            },
+            //OnError actions
+            error: function () {
+                alert("cannot get data");
+            }
+        });
+
+        //Code Copied from Stack Overflow as example
+        //var xhr = new XMLHttpRequest();
+        //xhr.open("GET", "https://toggl.com/reports/api/v2/weekly?user_agent=yourname@domain.com&workspace_id=012345", false);
+        //xhr.setRequestHeader('Authorization', 'Basic XXXXXX');
+        //xhr.send();
+        //document.write("Status code: " + xhr.status + " ");
+        //document.write(xhr.statusText + "</br>");
+
+        //curl -u "username:password" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"foo":"bar"}' http://www.example.com/api
+
+    </script>
+
+
 
 
     <div class="jumbotron">
@@ -40,5 +84,6 @@
             </p>
         </div>
     </div>
+    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
 
 </asp:Content>
