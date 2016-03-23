@@ -20,11 +20,13 @@
     <![endif]-->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-ui.min.js"></script>
+
 
     <style>
         body {
@@ -57,7 +59,7 @@
             float: left;
             background: #eee;
             padding: .25em;
-            margin: .25em;
+            margin: .25em !important;
             font-size: 1rem;
             border-radius: .25em !important;
             display: inline-block !important;
@@ -81,15 +83,38 @@
             font-size: 2em;
         }
 
+        .task-list-label {
+            width:100%;
+            display:inline-block;
+            margin-bottom:1em;
+        }
+
         .task-list-body {
-            -moz-box-shadow: inset 0 0 25px #000000;
-            -webkit-box-shadow: inset 0 0 25px #000000;
-            box-shadow: inset 0 0 25px #aaa;
+            border-radius: 5px;
+            overflow:auto;
+
             padding:5px;
+        }
+
+        .lvl1 .task-list-body {
+            -moz-box-shadow: inset 0 0 25px #aaa;
+            -webkit-box-shadow: inset 0 0 25px #aaa;
+            box-shadow: inset 0 0 25px #aaa;
+
             background-color:#ccc;
 
-            border-radius: 5px;
         }
+
+        .lvl2 .task-list-body {
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+
+            background-color:inherit;
+        }
+
+        
+        
 
         .lvl2, .lvl3, .lvl4 {
             clear: left;
@@ -101,8 +126,16 @@
         .members {
             max-width: 25%;
         }
+
+
+
     </style>
 
+    <script>
+        $(function () {
+            $(".list-group").sortable({connectWith: ".list-group",appendTo: "body",helper: "clone"}).disableSelection();
+        });
+    </script>
 
 
 </head>
@@ -150,13 +183,13 @@
         <!--<div class="jumbotron">
             <h1>Hello, world!</h1>
         </div>-->
-        <ul class="list-group">
-            <li class="list-group-item task task-list lvl1">
+        <ul class="list-group task-list">
+            <li class="list-group-item task lvl1">
                 <span>List Title #1</span>
                 <ul class="list-group task-list-body">
                     <li class="list-group-item task lvl2">Lorem<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span></li>
-                    <li class="list-group-item task lvl2">ipsum<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span>
-                        <ul class="list-group">
+                    <li class="list-group-item task lvl2"><div class="task-list-label">ipsum<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span></div>
+                        <ul class="list-group task-list-body">
                             <li class="list-group-item task lvl3">sit<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span></li>
                             <li class="list-group-item task lvl3">amet<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span></li>
                             <li class="list-group-item task lvl3">consectetur<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span></li>
@@ -171,13 +204,13 @@
                         </ul>
                     </li>
                     <li class="list-group-item task lvl2">dolor<span class="pull-right members"><i class="fa fa-reddit-alien"></i></span></li>
-                <div class="clearboth"></div>
+
                 </ul>
 
             </li>
             <li class="list-group-item task lvl1">
                 List Title #2
-                <ul class="list-group">
+                <ul class="list-group task-list-body">
                     <li class="list-group-item task lvl2">Lorem</li>
                     <li class="list-group-item task lvl2">ipsum</li>
                     <li class="list-group-item task lvl2">dolor</li>
@@ -185,7 +218,7 @@
             </li>
             <li class="list-group-item task lvl1">
                 List Title #3
-                <ul class="list-group">
+                <ul class="list-group task-list-body">
                     <li class="list-group-item task lvl2">
                         Lorem
                         <ul class="list-group">
